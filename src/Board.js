@@ -79,12 +79,40 @@
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
-      return false; // fixme
+      
+      var pieces = 0;
+      var n = this.attributes.n;
+      var row = this.attributes[rowIndex];
+
+      
+      // Count the number of pieces in row at rowIndex
+      for (var i = 0; i < n; i++) {
+        pieces += row[i];
+      }
+
+      // If more than one piece exists in a row, there is a conflict
+      if ( pieces > 1 ){
+        return true;
+      } else {
+        return false;
+      }
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-      return false; // fixme
+      var conflicts = 0;
+      var n = this.attributes.n;
+
+      for (var i = 0; i < n; i++) {
+        if (this.hasRowConflictAt(i)) {
+          conflicts++;
+        }
+      }
+      if (conflicts > 0) {
+        return true;
+      } else {
+        return false;
+      }
     },
 
 
