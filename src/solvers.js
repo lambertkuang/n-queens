@@ -14,6 +14,7 @@
 
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n rooks placed such that none of them can attack each other
 window.findNRooksSolution = function(n) {
+
   var solution = new Board({n: n});
   // Check if there are any row or column conflicts in each square
   for (var i = 0; i < n; i++) {
@@ -37,7 +38,58 @@ window.findNRooksSolution = function(n) {
 
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
 window.countNRooksSolutions = function(n) {
-  var solutionCount = undefined; //fixme
+  var solutionCount = 0;
+        // var testBoard = new Board({n: n});
+
+        // seedFirstRow(testBoard);
+
+        // var seedFirstRow = function(board){
+        //   var randomIndex;
+          
+        //   // Only add a piece if one doesn't exist already
+        //   if (_.indexOf(board.attributes[0], 1) === -1) {
+        //     randomIndex = Math.floor(Math.random() * board.attributes.n);
+        //     board.attributes[0][randomIndex] = 1;
+        //   }
+        // };
+
+        // var firstRow = testBoard.attributes[0];
+
+        // var getChildren = function(array) {
+
+        //   var n = array.length;
+        //   var newRow = Array.apply(null, Array(n)).map(Number.prototype.valueOf,0);
+        //   var parentIndex = null;
+        //   var insertAt = null;
+
+        //   // Discover where rook exists in passed array
+        //   for (var i = 0; i < n; i++) {
+        //     if (array[i] === 1 && parentIndex === null) {
+        //       parentIndex = i;
+        //     }
+        //   }
+
+        //   // Generate empty rows based on passed array size
+        //   for (var i = 0; i < n - 1; i++) {
+        //     newArray.push(newRow);
+        //   }
+
+        //   console.log(n);
+        //   // Iterate over new arrays and add 1s where applicable
+        //   for (var i = 0; i < n - 1; i++) {
+
+
+        //     //console.log("adding 1 at array[" + i + "][" + insertAt + "]");
+        //     console.log(i);
+        //     newArray[i][i] = 1;
+            
+
+        //     //console.log("i: " + i + " | insertAt: " + insertAt);
+        //   }
+        //   return tree.children;
+        // };
+
+  // var result = makeNewRows([1,0,0]);
 
   console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
   return solutionCount;
