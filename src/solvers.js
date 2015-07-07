@@ -39,57 +39,64 @@ window.findNRooksSolution = function(n) {
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
 window.countNRooksSolutions = function(n) {
   var solutionCount = 0;
-        // var testBoard = new Board({n: n});
+  var testBoard = new Board({n: n});
 
-        // seedFirstRow(testBoard);
+  seedFirstRow(testBoard);
 
-        // var seedFirstRow = function(board){
-        //   var randomIndex;
-          
-        //   // Only add a piece if one doesn't exist already
-        //   if (_.indexOf(board.attributes[0], 1) === -1) {
-        //     randomIndex = Math.floor(Math.random() * board.attributes.n);
-        //     board.attributes[0][randomIndex] = 1;
-        //   }
-        // };
+  var seedFirstRow = function(board){
+    var randomIndex;
+    
+    // Only add a piece if one doesn't exist already
+    if (_.indexOf(board.attributes[0], 1) === -1) {
+      randomIndex = Math.floor(Math.random() * board.attributes.n);
+      board.attributes[0][randomIndex] = 1;
+    }
+  };
 
-        // var firstRow = testBoard.attributes[0];
+  var firstRow = testBoard.attributes[0];
 
-        // var getChildren = function(array) {
+  var decisionTree = new Tree();
 
-        //   var n = array.length;
-        //   var newRow = Array.apply(null, Array(n)).map(Number.prototype.valueOf,0);
-        //   var parentIndex = null;
-        //   var insertAt = null;
+  tree.value = firstRow;
+  tree.children = getChildren(firstRow);
 
-        //   // Discover where rook exists in passed array
-        //   for (var i = 0; i < n; i++) {
-        //     if (array[i] === 1 && parentIndex === null) {
-        //       parentIndex = i;
-        //     }
-        //   }
+  if (tree.children.length )
 
-        //   // Generate empty rows based on passed array size
-        //   for (var i = 0; i < n - 1; i++) {
-        //     newArray.push(newRow);
-        //   }
+  var getChildren = function(array) {
+    var children = [];
+    var n = array.length;
+    
+    if (n < 2) {
+      return children = null;
+    }
 
-        //   console.log(n);
-        //   // Iterate over new arrays and add 1s where applicable
-        //   for (var i = 0; i < n - 1; i++) {
+    var parentIndex = null;
+    var insertAt = null;
 
+    // Discover where rook exists in passed array
+    for (var i = 0; i < n; i++) {
+      if (array[i] === 1 && parentIndex === null) { parentIndex = i; }
+    }
 
-        //     //console.log("adding 1 at array[" + i + "][" + insertAt + "]");
-        //     console.log(i);
-        //     newArray[i][i] = 1;
-            
+    // Generate empty rows based on passed array size
+    for (var i = 0; i < n - 1; i++) { children.push([]); }
 
-        //     //console.log("i: " + i + " | insertAt: " + insertAt);
-        //   }
-        //   return tree.children;
-        // };
+    var nextElement = parentIndex + 1;
 
-  // var result = makeNewRows([1,0,0]);
+    // Iterate over new arrays and add 1s where applicable
+    for (var i = 0; i < n - 1; i++) {
+      // Set element back to zero if row size is exceeded
+      if (!(nextElement < n)) { nextElement = 0; }
+
+      // Go through each item in the row and decide if it's a good spot 
+      for (var j = 0; j < n; j++) {
+        children[i][j] = 0;
+        children[i][nextElement] = 1;
+      }
+      nextElement++;
+    }
+    return children;
+  };
 
   console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
   return solutionCount;
